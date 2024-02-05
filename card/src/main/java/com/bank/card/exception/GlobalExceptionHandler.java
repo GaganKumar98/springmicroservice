@@ -1,4 +1,4 @@
-package com.bank.account.exception;
+package com.bank.card.exception;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.bank.account.dto.ErrorResponseDto;
+import com.bank.card.dto.ErrorResponseDto;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -25,44 +25,38 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		Map<String, String> validationError = new HashMap<>();
+		Map<String, String> validationErrors = new HashMap<>();
 		List<ObjectError> validationErrorList = ex.getBindingResult().getAllErrors();
 
 		validationErrorList.forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
 			String validationMsg = error.getDefaultMessage();
-			validationError.put(fieldName, validationMsg);
+			validationErrors.put(fieldName, validationMsg);
 		});
-		return new ResponseEntity<>(validationError, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(CustomerAlreadyExistsException.class)
-	public ResponseEntity<ErrorResponseDto> hadleCustomerIsAldreadyExistsException(
-			CustomerAlreadyExistsException exception, WebRequest webRequest) {
+	@ExceptionHandler(CardNotFoundException.class)
+	public ResponseEntity<ErrorResponseDto> handleCardNotFound(CardNotFoundException ex, WebRequest webRequest) {
 
 		ErrorResponseDto errorResponseDto = new ErrorResponseDto(webRequest.getDescription(false),
-				HttpStatus.BAD_REQUEST, exception.getMessage(), LocalDateTime.now());
-
+				HttpStatus.BAD_REQUEST, ex.getMessage(), LocalDateTime.now());
 		return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<ErrorResponseDto> hadleResourceNotFoundException(CustomerAlreadyExistsException exception,
+	public ResponseEntity<ErrorResponseDto> handleResourceNotFound(ResourceNotFoundException ex,
 			WebRequest webRequest) {
-
 		ErrorResponseDto errorResponseDto = new ErrorResponseDto(webRequest.getDescription(false), HttpStatus.NOT_FOUND,
-				exception.getMessage(), LocalDateTime.now());
-
-		return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
+				ex.getMessage(), LocalDateTime.now());
+		return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ErrorResponseDto> hadleGlobalException(Exception exception, WebRequest webRequest) {
+	public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception ex, WebRequest webRequest) {
 
 		ErrorResponseDto errorResponseDto = new ErrorResponseDto(webRequest.getDescription(false),
-				HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), LocalDateTime.now());
-
+				HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), LocalDateTime.now());
 		return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
 }
