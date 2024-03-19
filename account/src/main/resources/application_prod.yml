@@ -1,0 +1,16 @@
+
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+    
+build:
+  version: "3.0"
+  
+accounts:
+  Messsage: "Welcome to accounts MS - prod"
+  ContactDetails:
+    name: "prod"
+    email: "prod@gmail.com"
+  onCallSupport:
+    -7982010520

@@ -1,0 +1,30 @@
+
+services:
+  
+  accounts:
+     image: gagankumar03/accounts:v1
+     mem_limit: 700m
+     ports:
+       - "9898:9898"
+     networks:
+       - ms-network
+       
+  loan:
+     image: gagankumar03/loan:v1
+     mem_limit: 700m
+     ports:
+       - "9899:9899"
+     networks:
+       - ms-network
+       
+  card:
+     image: gagankumar03/card:v1
+     mem_limit: 700m
+     ports:
+       - "9889:9889"
+     networks:
+       - ms-network
+
+networks:
+   ms-network:
+    driver: "bridge"

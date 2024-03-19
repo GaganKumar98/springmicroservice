@@ -1,6 +1,10 @@
 package com.bank.account.controller;
 
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bank.account.constants.AccountsConstants;
+import com.bank.account.dto.AccountContactInfoDto;
 import com.bank.account.dto.CustomerDto;
 import com.bank.account.dto.ErrorResponseDto;
 import com.bank.account.dto.ResponseDto;
@@ -33,6 +38,15 @@ import jakarta.validation.constraints.Pattern;
 @RequestMapping("/api")
 @Validated
 public class AccountsController {
+
+	@Value("${build.version}")
+	private String buildVersion;
+
+	@Autowired
+	private Environment environment;
+
+	@Autowired
+	private AccountContactInfoDto accountContactInfoDto;
 
 	@Autowired
 	private IAccountsService accountsService;
@@ -87,5 +101,26 @@ public class AccountsController {
 		}
 		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
 				.body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
+	}
+
+	@Operation(summary = "Build Info", description = "REST API to get the build info")
+	@ApiResponse(responseCode = "200", description = "HTTP Status Ok")
+	@GetMapping("buildinfo")
+	public ResponseEntity<String> getBuildInfo() {
+		return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+	}
+
+	@Operation(summary = "Java Version", description = "REST API to get the Java Version")
+	@ApiResponse(responseCode = "200", description = "HTTP Status Ok")
+	@GetMapping("javaversion")
+	public ResponseEntity<String> getJavaVersion() {
+		return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("Path"));
+	}
+
+	@Operation(summary = "Contact Info", description = "REST API to get the Contact Info")
+	@ApiResponse(responseCode = "200", description = "HTTP Status Ok")
+	@GetMapping("contactinfo")
+	public ResponseEntity<AccountContactInfoDto> getContactInfo() {
+		return ResponseEntity.status(HttpStatus.OK).body(accountContactInfoDto);
 	}
 }

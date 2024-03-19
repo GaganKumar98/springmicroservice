@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-@Data
+//@Data
 @Schema(name = "Accounts", description = "Schema to hold Accounts information")
 public class AccountsDto {
 

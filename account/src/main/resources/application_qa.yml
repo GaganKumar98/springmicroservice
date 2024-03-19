@@ -1,0 +1,16 @@
+
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+    
+build:
+  version: "3.0"
+  
+accounts:
+  Messsage: "Welcome to accounts MS - QA Api"
+  ContactDetails:
+    name: "QA Account"
+    email: "qa@gmail.com"
+  onCallSupport:
+    -7982010520

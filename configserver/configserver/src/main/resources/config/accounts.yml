@@ -1,0 +1,13 @@
+server:
+  port: 9898
+    
+build:
+  version: "2.0"
+  
+accounts:
+  Messsage: "Welcome to accounts MS"
+  ContactDetails:
+    name: "Gagan Kumar"
+    email: "gagan@gmail.com"
+  onCallSupport:
+    -7982010520

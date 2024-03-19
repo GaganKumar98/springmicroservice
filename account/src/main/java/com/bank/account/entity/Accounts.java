@@ -10,11 +10,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+//@Getter
+//@Setter
+//@ToString
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Accounts extends BaseEntity {
 
 	@Column(name ="customer_id")

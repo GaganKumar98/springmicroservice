@@ -12,6 +12,7 @@
 	<groupId>com.bank</groupId>
 	<artifactId>account</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>account</name>
 	<description>Microservice for accounts</description>
 	<properties>
@@ -61,10 +62,9 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -75,8 +75,17 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>-->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<to>
+						<image>gagankumar03/${project.artifactId}:v2</image>
+					</to>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Data
+//@Data
 @Schema(name = "Customer", description = "Schema to hold Customer & Account information")
 public class CustomerDto {
 

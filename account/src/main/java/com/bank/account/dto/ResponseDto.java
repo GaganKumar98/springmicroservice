@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
+//@Data
+//@AllArgsConstructor
 @Schema(name = "Response", description = "Schema to Hold Successful response information")
 public class ResponseDto {
 

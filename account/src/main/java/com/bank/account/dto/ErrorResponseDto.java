@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+//import lombok.Data;
 
-@Data
-@AllArgsConstructor
+//@Data
+//@AllArgsConstructor
 @Schema(name = "Error Response", description = "Schema to Hold error response information")
 public class ErrorResponseDto {
 
@@ -59,7 +59,7 @@ public class ErrorResponseDto {
 
 	public ErrorResponseDto() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public ErrorResponseDto(String apiPath, HttpStatus errorCod, String errorMessage, LocalDateTime errorTime) {
